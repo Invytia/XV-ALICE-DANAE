@@ -233,7 +233,7 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
-            z-index: 1; /* Detrás de los textos (.anim-element tiene z-index: 2) */
+            z-index: 1; 
         }
         
         .bg-navy::before {
@@ -397,6 +397,26 @@
         .ticket-card::before { left: -12px; }
         .ticket-card::after { right: -12px; }
 
+        /* Firma / Footer */
+        .invytia-footer {
+            width: 100%; 
+            padding: 40px 20px 80px 20px; 
+            text-align: center; 
+            background-color: var(--black-theme);
+            position: relative;
+            z-index: 2;
+        }
+
+        .invytia-footer-text {
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 10px; 
+            font-weight: 500; 
+            letter-spacing: 4px; 
+            text-transform: uppercase; 
+            color: #8BA8CC; 
+            opacity: 0.8;
+        }
+
         /* Responsive Móvil */
         @media (max-width: 400px) {
             .env-title { font-size: 65px; }
@@ -531,7 +551,7 @@
             <img src="assets/flores2.png" class="floral-img anim-element anim-zoom delay-3" style="bottom: 30%; right: -25px; transform: rotate(-15deg);" alt="">
 
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
-                Lugar del Evento
+                Misa de Acción de Gracias y Recepción
                 <div class="sparkle" style="top:-8px; left:-25px;"></div>
             </div>
             <div class="anim-element anim-fade-up delay-2 info-data">Terraza Jardín Rancho Escondido</div>
@@ -560,23 +580,6 @@
             </p>
             <p class="anim-element anim-fade-up delay-4 body-serif" style="color: #94a3b8; font-size: 16px; margin-top: 15px; font-family: 'Montserrat', sans-serif; font-style: normal;">
                 (Favor de reservar el color azul para la quinceañera)
-            </p>
-        </section>
-
-        <!-- Mesa de Regalos (Fondo Azul Marino + Estrellas) -->
-        <section class="section-block bg-navy">
-            <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: 10%; right: -25px; transform: rotate(-30deg);" alt="">
-
-            <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
-                Mesa de Regalos
-                <div class="sparkle s-light" style="top:-8px; left:-20px;"></div>
-            </div>
-            <svg class="anim-element anim-zoom delay-2 gift-icon" viewBox="0 0 24 24" style="width: 45px; height: 45px; margin: 20px 0; position: relative; z-index: 2;">
-                <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
-            <div class="anim-element anim-fade-up delay-3 info-data" style="font-size: 34px;">Lluvia de Sobres</div>
-            <p class="anim-element anim-fade-up delay-4 body-serif" style="margin-top: 20px; font-size: 20px;">
-                El obsequio más hermoso es tu presencia. Si deseas tener un detalle adicional, habrá un buzón en la recepción para tu obsequio en efectivo.
             </p>
         </section>
 
@@ -686,11 +689,23 @@
             <div class="anim-element anim-fade-up delay-4 form-group">
                 <textarea id="wish-message" class="input-line" placeholder="Deja un lindo mensaje para Alice Danae..."></textarea>
             </div>
-            <button onclick="sendWish()" class="anim-element anim-fade-up delay-4 btn-solid" style="margin-bottom: 40px;">Enviar Mensaje</button>
+            <button onclick="sendWish()" class="anim-element anim-fade-up delay-4 btn-solid" style="margin-bottom: 50px;">Enviar Mensaje</button>
+            
+            <!-- Despedida Alice -->
+            <div class="anim-element anim-fade-up delay-4" style="margin-top: 40px; margin-bottom: 20px; font-family: 'Pinyon Script', cursive; font-size: 55px; color: var(--navy-accent); line-height: 1;">
+                Con amor, Alice
+            </div>
             
         </section>
 
     </main>
+    
+    <!-- Footer Invytia -->
+    <footer class="invytia-footer">
+        <div class="invytia-footer-text">
+            Invytia Premium Concierge
+        </div>
+    </footer>
 
     <script>
         // --- CONTROL DE AUDIO ---
