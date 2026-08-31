@@ -7,14 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Pinyon+Script&family=Montserrat:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Paleta Azul Marino Minimalista */
+            /* Paleta Azul Marino Minimalista y Editorial */
             --bg-pearl: #F4F6F9;       
-            --navy-light: #E6EBF2;    
-            --navy-subtle: #D0D9E5;    
-            --navy-accent: #1A365D; 
+            --navy-accent: #0F203B; /* Azul marino muy oscuro y elegante */
+            --navy-light: #1A365D;
             --text-dark: #1E293B;      
             --text-muted: #475569;
-            --black-theme: #0F172A;
+            --black-theme: #0A0F18;
             
             --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
         }
@@ -46,7 +45,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 25px rgba(26, 54, 93, 0.4);
+            box-shadow: 0 10px 25px rgba(15, 32, 59, 0.4);
             z-index: 2000;
             cursor: pointer;
             opacity: 0;
@@ -65,7 +64,7 @@
 
         .sticky-music-btn:hover {
             transform: scale(1.1);
-            background-color: #2c5282;
+            background-color: var(--navy-light);
         }
 
         .sticky-music-btn svg {
@@ -96,14 +95,12 @@
 
         .env-tag {
             font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 8px;
-            text-transform: uppercase; color: var(--navy-accent); font-weight: 600;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+            text-transform: uppercase; color: #FFFFFF; font-weight: 500;
         }
 
         .env-title {
             font-family: 'Pinyon Script', cursive; font-size: 85px;
-            color: var(--navy-accent); line-height: 1.2; margin-top: 5px;
-            text-shadow: 0 2px 15px rgba(255,255,255,0.9);
+            color: #FFFFFF; line-height: 1.2; margin-top: 5px;
         }
 
         .envelope-wrapper {
@@ -120,7 +117,6 @@
             border: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* Laterales del sobre */
         .envelope::before {
             content: ''; position: absolute; top: 0; right: 0;
             border-right: 160px solid #F8FAFC; border-top: 105px solid transparent;
@@ -133,7 +129,6 @@
             border-bottom: 105px solid #F1F5F9; z-index: 2;
         }
 
-        /* Solapa superior */
         .front-flap {
             position: absolute; top: 0; left: 0;
             border-left: 160px solid transparent; border-right: 160px solid transparent;
@@ -147,12 +142,11 @@
         .wax-seal {
             position: absolute; top: 90px; left: 50%; transform: translateX(-50%);
             width: 45px; height: 45px; background-color: var(--navy-accent);
-            border-radius: 50%; z-index: 5; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.4); 
+            border-radius: 50%; z-index: 5;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.2), 0 4px 15px rgba(15, 32, 59, 0.4); 
             transition: opacity 0.5s ease 0.1s, transform 0.5s ease;
         }
         
-        .wax-seal svg { width: 22px; height: 22px; fill: #fff; }
         .envelope-wrapper.open .wax-seal { opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; }
 
         .hint-text {
@@ -175,7 +169,7 @@
             position: absolute;
             width: 20px;
             height: 20px;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C12 5.5 16.5 10 22 10C16.5 10 12 14.5 12 20C12 14.5 7.5 10 2 10C7.5 10 12 5.5 12 0Z" fill="%231A365D"/></svg>') center/contain no-repeat;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C12 5.5 16.5 10 22 10C16.5 10 12 14.5 12 20C12 14.5 7.5 10 2 10C7.5 10 12 5.5 12 0Z" fill="%230F203B"/></svg>') center/contain no-repeat;
             animation: twinkle 2s infinite ease-in-out;
             pointer-events: none;
             z-index: 10;
@@ -221,10 +215,24 @@
             position: relative; overflow: hidden;
         }
 
+        /* CLASES DE COLORES */
         .bg-pearl { background-color: var(--bg-pearl); }
-        .bg-navy-light { background-color: var(--navy-light); }
-        .bg-navy-subtle { background-color: var(--navy-subtle); }
+        
+        /* Tema Invertido: Fondo Azul Marino Oscuro, Letras Blancas */
+        .bg-navy { 
+            background-color: var(--navy-accent); 
+            color: #ffffff; 
+        }
+        
+        .bg-navy .info-title { color: #8BA8CC; } /* Azul más claro para subtítulos en fondos oscuros */
+        .bg-navy .info-data, .bg-navy .title-script { color: #ffffff; }
+        .bg-navy .body-serif { color: #CBD5E1; }
+        .bg-navy svg.gift-icon { fill: #ffffff; }
+
+        /* Tema Negro */
         .bg-black { background-color: var(--black-theme); color: #ffffff; }
+        .bg-black .info-title { color: #8BA8CC; }
+        .bg-black .info-data, .bg-black .title-script { color: #ffffff; }
 
         /* DECORACIONES FLORALES */
         .floral-img {
@@ -237,6 +245,8 @@
             font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 5px;
             text-transform: uppercase; color: var(--navy-accent); margin-bottom: 25px; font-weight: 600;
         }
+        
+        .bg-navy .tag-line { color: #8BA8CC; }
 
         .title-script {
             font-family: 'Pinyon Script', cursive; font-size: 80px;
@@ -249,21 +259,6 @@
             max-width: 600px; padding: 0 15px; font-weight: 400;
         }
 
-        .bg-black .title-script, .bg-black .body-serif { color: #ffffff; }
-
-        .line-divider { width: 1px; height: 60px; background-color: var(--navy-accent); margin: 35px auto; }
-        .line-horizontal { width: 60px; height: 1px; background-color: var(--navy-accent); margin: 40px auto; }
-
-        /* Imágenes */
-        .photo-frame {
-            width: 100%; max-width: 420px; margin: 40px auto;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-radius: 2px;
-            overflow: hidden; border: 5px solid #FFFFFF; position: relative; z-index: 2;
-        }
-        .bg-black .photo-frame { border-color: #222222; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .photo-frame img { width: 100%; display: block; filter: contrast(1.05) saturate(0.95); transition: transform 0.6s ease; }
-        .photo-frame:hover img { transform: scale(1.03); }
-
         /* Información Textual */
         .info-title {
             font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 3px; line-height: 1.4;
@@ -275,8 +270,6 @@
             color: var(--text-dark); margin-bottom: 5px; font-weight: 500; line-height: 1.3;
         }
 
-        .bg-black .info-data { color: #ffffff; }
-
         /* Botones Minimalistas Editoriales */
         .btn-solid {
             display: inline-block; background-color: var(--navy-accent); color: #fff;
@@ -286,19 +279,21 @@
             transition: all 0.4s ease; margin-top: 30px; position: relative; z-index: 5;
         }
         
-        .btn-solid:hover { background-color: #2c5282; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(26, 54, 93, 0.25); }
-        .bg-black .btn-solid { background-color: #ffffff; color: var(--navy-accent); }
-        .bg-black .btn-solid:hover { background-color: #f1f5f9; box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2); }
+        .btn-solid:hover { background-color: var(--navy-light); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(15, 32, 59, 0.25); }
+        
+        /* Botones en fondos oscuros */
+        .bg-navy .btn-solid, .bg-black .btn-solid { background-color: #ffffff; color: var(--navy-accent); }
+        .bg-navy .btn-solid:hover, .bg-black .btn-solid:hover { background-color: #f1f5f9; box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2); }
 
-        /* Widget de Calendario Editorial */
+        /* Widget de Calendario Editorial (Blanco puro para contrastar en fondo oscuro) */
         .calendar-wrapper {
             width: 100%; max-width: 340px; margin: 40px auto; padding: 35px 25px;
-            background: #fff; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.06);
-            box-sizing: border-box; border: 1px solid rgba(0,0,0,0.03); position: relative; z-index: 2;
+            background: #fff; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+            box-sizing: border-box; position: relative; z-index: 2;
         }
 
         .calendar-month {
-            font-family: 'Cinzel', serif; font-size: 20px; color: var(--text-dark);
+            font-family: 'Cinzel', serif; font-size: 20px; color: var(--navy-accent);
             text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px; font-weight: 600;
         }
 
@@ -309,18 +304,18 @@
 
         .cal-header {
             font-family: 'Montserrat', sans-serif; font-size: clamp(10px, 3vw, 12px);
-            font-weight: 500; color: var(--navy-accent); padding-bottom: 12px;
+            font-weight: 500; color: var(--navy-light); padding-bottom: 12px;
         }
 
         .cal-day {
             font-family: 'Cormorant Garamond', serif; font-size: clamp(16px, 4.5vw, 20px);
-            font-weight: 400; color: var(--text-muted); display: flex; justify-content: center; align-items: center;
+            font-weight: 400; color: var(--text-dark); display: flex; justify-content: center; align-items: center;
             aspect-ratio: 1;
         }
 
         .cal-day.active {
             background-color: var(--navy-accent); color: #fff; border-radius: 50%; 
-            font-weight: 500; box-shadow: 0 4px 12px rgba(26, 54, 93, 0.35);
+            font-weight: 500; box-shadow: 0 4px 12px rgba(15, 32, 59, 0.35);
         }
 
         /* Mapas */
@@ -357,7 +352,7 @@
 
         .ticket-card::before, .ticket-card::after {
             content: ''; position: absolute; top: 60%; transform: translateY(-50%);
-            width: 24px; height: 24px; background-color: var(--navy-subtle); border-radius: 50%;
+            width: 24px; height: 24px; background-color: var(--bg-pearl); border-radius: 50%;
         }
         .ticket-card::before { left: -12px; }
         .ticket-card::after { right: -12px; }
@@ -396,9 +391,8 @@
 
         <div class="envelope-wrapper" onclick="openEnvelope()">
             <div class="front-flap"></div>
-            <div class="wax-seal">
-                <svg viewBox="0 0 24 24"><path d="M12 2L15 9H22L16.5 13.5L18.5 21L12 17L5.5 21L7.5 13.5L2 9H9L12 2Z"/></svg>
-            </div>
+            <!-- Sello sin estrella -->
+            <div class="wax-seal"></div>
             <div class="envelope"></div>
         </div>
         
@@ -419,25 +413,22 @@
                 <div class="sparkle" style="bottom:-5px; left:-15px; animation-delay: 1s;"></div>
             </div>
             <h1 class="anim-element anim-zoom delay-2 title-script">Alice Danae</h1>
-            <div class="anim-element anim-fade-up delay-3 line-divider"></div>
-            <p class="anim-element anim-fade-up delay-4 body-serif">
+            
+            <p class="anim-element anim-fade-up delay-4 body-serif" style="margin-top: 20px;">
                 "Hoy celebro el inicio de una nueva etapa, agradeciendo a Dios por la vida y a mi familia por acompañarme en cada paso del camino."
             </p>
-            <div class="anim-element anim-fade-up delay-4 photo-frame">
-                <img src="assets/foto1.jpg" alt="Alice Danae" onerror="this.style.display='none'">
-            </div>
         </section>
 
-        <!-- Fecha y Calendario -->
-        <section class="section-block bg-navy-light">
+        <!-- Fecha y Calendario (Fondo Azul Marino) -->
+        <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-2" style="top: 20%; right: -20px; transform: rotate(-35deg);" alt="">
 
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Será un honor contar con tu presencia el
-                <div class="sparkle" style="top:-5px; left:-25px;"></div>
+                <div class="sparkle s-light" style="top:-5px; left:-25px;"></div>
             </div>
             <div class="anim-element anim-fade-up delay-2 info-data" style="font-size: 40px; font-weight: 500;">16 de Enero</div>
-            <div class="anim-element anim-fade-up delay-3 info-data" style="font-size: 24px; color: var(--navy-accent); letter-spacing: 2px;">2027</div>
+            <div class="anim-element anim-fade-up delay-3 info-data" style="font-size: 24px; color: #8BA8CC; letter-spacing: 2px;">2027</div>
 
             <div class="anim-element anim-zoom delay-4 calendar-wrapper">
                 <div class="calendar-month">Enero</div>
@@ -454,10 +445,6 @@
             </div>
 
             <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=XV+A%C3%B1os+de+Alice+Danae&dates=20270116T223000Z/20270117T060000Z&details=Celebremos+juntos+este+d%C3%ADa+tan+especial" target="_blank" class="anim-element anim-fade-up delay-4 btn-solid">Agendar Evento</a>
-
-            <div class="anim-element anim-fade-up delay-4 photo-frame" style="margin-top: 70px;">
-                <img src="assets/foto2.jpg" alt="Sesión" onerror="this.style.display='none'">
-            </div>
         </section>
 
         <!-- Familia -->
@@ -472,37 +459,29 @@
             <div class="anim-element anim-fade-up delay-3" style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--navy-accent); margin: 15px 0;">&</div>
             <div class="anim-element anim-fade-up delay-3 info-data">Sergio Morales Merida</div>
             
-            <div class="anim-element anim-zoom delay-4 line-horizontal"></div>
-            
-            <div class="anim-element anim-fade-up delay-4 info-title sparkle-container">
+            <div class="anim-element anim-fade-up delay-4 info-title sparkle-container" style="margin-top: 50px;">
                 Y mis Padrinos
                 <div class="sparkle" style="top:-5px; left:-20px; animation-delay:0.5s;"></div>
             </div>
             <div class="anim-element anim-fade-up delay-4 info-data" style="font-size: 28px;">Yareli Ambrosio Vargas y Joshua Calix Bustos</div>
             <div class="anim-element anim-fade-up delay-4" style="font-family: 'Cinzel', serif; font-size: 16px; color: var(--navy-accent); margin: 10px 0;">&</div>
             <div class="anim-element anim-fade-up delay-4 info-data" style="font-size: 28px;">Ana Cecilia Martinez Orocio y Luis López Martinez</div>
-
-            <div class="anim-element anim-fade-up delay-4 photo-frame" style="margin-top: 70px;">
-                <img src="assets/foto3.jpg" alt="Familia" onerror="this.style.display='none'">
-            </div>
         </section>
 
-        <!-- Itinerario -->
-        <section class="section-block bg-navy-subtle">
+        <!-- Itinerario (Fondo Azul Marino) -->
+        <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: 5%; right: -20px; transform: rotate(45deg);" alt="">
             
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Itinerario
-                <div class="sparkle" style="top:-10px; right:-20px;"></div>
+                <div class="sparkle s-light" style="top:-10px; right:-20px;"></div>
             </div>
             
             <div class="anim-element anim-fade-up delay-2 info-data" style="margin-top: 20px;">5:00 p.m.</div>
             <div class="anim-element anim-fade-up delay-3 body-serif" style="font-size: 26px;">Ceremonia Religiosa</div>
             <p class="anim-element anim-fade-up delay-3 body-serif" style="font-size: 18px; margin-top: 5px;">Terraza Jardín "Rancho Escondido"</p>
 
-            <div class="anim-element anim-zoom delay-4 line-horizontal" style="margin: 30px auto; width: 40px;"></div>
-
-            <div class="anim-element anim-fade-up delay-2 info-data">6:00 p.m.</div>
+            <div class="anim-element anim-fade-up delay-2 info-data" style="margin-top: 40px;">6:00 p.m.</div>
             <div class="anim-element anim-fade-up delay-3 body-serif" style="font-size: 26px;">Recepción</div>
             <p class="anim-element anim-fade-up delay-3 body-serif" style="font-size: 18px; margin-top: 5px;">Terraza Jardín "Rancho Escondido"</p>
         </section>
@@ -524,10 +503,6 @@
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4095.241154724666!2d-98.8589946!3d19.254472999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce18ca6eba0589%3A0x5e0da8b3ba5b8d55!2sTerraza%20Jard%C3%ADn%20Rancho%20Escondido!5e1!3m2!1ses-419!2smx!4v1788215546030!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
             <a href="https://maps.app.goo.gl/ZHN5d1URbvHKP98o9" target="_blank" class="anim-element anim-fade-up delay-4 btn-solid">Ver Ubicación</a>
-
-            <div class="anim-element anim-fade-up delay-4 photo-frame" style="margin-top: 70px;">
-                <img src="assets/foto4.jpg" alt="Ubicación" onerror="this.style.display='none'">
-            </div>
         </section>
 
         <!-- Dress Code -->
@@ -539,38 +514,30 @@
             <div class="anim-element anim-fade-up delay-2 info-data" style="font-family: 'Cinzel', serif; font-size: 40px; margin: 25px 0; letter-spacing: 5px; color: #fff;">
                 FORMAL
             </div>
-            <div class="anim-element anim-fade-up delay-3 line-divider" style="background-color: #333; height: 40px;"></div>
-            <p class="anim-element anim-fade-up delay-4 body-serif" style="color: #cbd5e1; font-size: 21px;">
+            
+            <p class="anim-element anim-fade-up delay-4 body-serif" style="color: #cbd5e1; font-size: 21px; margin-top: 30px;">
                 Se solicita amablemente asistir de vestimenta formal.
             </p>
             <p class="anim-element anim-fade-up delay-4 body-serif" style="color: #94a3b8; font-size: 16px; margin-top: 15px; font-family: 'Montserrat', sans-serif; font-style: normal;">
                 (Favor de reservar el color azul para la quinceañera)
             </p>
-
-            <div class="anim-element anim-fade-up delay-4 photo-frame" style="margin-top: 70px;">
-                <img src="assets/foto5.jpg" alt="Dress Code" onerror="this.style.display='none'">
-            </div>
         </section>
 
-        <!-- Mesa de Regalos -->
-        <section class="section-block bg-navy-light">
+        <!-- Mesa de Regalos (Fondo Azul Marino) -->
+        <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: 10%; right: -25px; transform: rotate(-30deg);" alt="">
 
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Mesa de Regalos
-                <div class="sparkle" style="top:-8px; left:-20px;"></div>
+                <div class="sparkle s-light" style="top:-8px; left:-20px;"></div>
             </div>
-            <svg class="anim-element anim-zoom delay-2" viewBox="0 0 24 24" style="width: 45px; height: 45px; fill: var(--navy-accent); margin: 20px 0; position: relative; z-index: 2;">
+            <svg class="anim-element anim-zoom delay-2 gift-icon" viewBox="0 0 24 24" style="width: 45px; height: 45px; margin: 20px 0; position: relative; z-index: 2;">
                 <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
             </svg>
             <div class="anim-element anim-fade-up delay-3 info-data" style="font-size: 34px;">Lluvia de Sobres</div>
             <p class="anim-element anim-fade-up delay-4 body-serif" style="margin-top: 20px; font-size: 20px;">
                 El obsequio más hermoso es tu presencia. Si deseas tener un detalle adicional, habrá un buzón en la recepción para tu obsequio en efectivo.
             </p>
-
-            <div class="anim-element anim-fade-up delay-4 photo-frame" style="margin-top: 70px;">
-                <img src="assets/foto6.jpg" alt="Regalos" onerror="this.style.display='none'">
-            </div>
         </section>
 
         <!-- Playlist -->
@@ -591,44 +558,32 @@
             </div>
             
             <a href="https://open.spotify.com/playlist/7l0FCv5Z6jN3OafGk5dOnI?si=2d857d8325ff432e&pt=14b329e549c5dbd856fb312730da317a" target="_blank" class="anim-element anim-fade-up delay-4 btn-solid">Agregar Canciones</a>
-
-            <div class="anim-element anim-fade-up delay-4 photo-frame" style="margin-top: 70px;">
-                <img src="assets/foto7.jpg" alt="Fiesta" onerror="this.style.display='none'">
-            </div>
         </section>
 
-        <!-- Galería -->
-        <section class="section-block bg-navy-subtle">
+        <!-- Galería (Fondo Azul Marino) -->
+        <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: 15%; left: -30px; transform: rotate(35deg);" alt="">
 
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Momentos
-                <div class="sparkle" style="top:-5px; left:-20px;"></div>
+                <div class="sparkle s-light" style="top:-5px; left:-20px;"></div>
             </div>
             <div class="anim-element anim-fade-up delay-2 info-data" style="font-size: 34px;">Galería en Vivo</div>
             <p class="anim-element anim-fade-up delay-3 body-serif" style="margin: 25px auto; font-size: 20px;">
                 Captura la magia de esta noche. Comparte todas las fotos y videos que tomes directamente en nuestro álbum digital.<br><br>
-                <span style="font-size: 14px; font-family: 'Montserrat', sans-serif; font-style: normal; font-weight: 500; color: var(--text-muted);">
+                <span style="font-size: 14px; font-family: 'Montserrat', sans-serif; font-style: normal; font-weight: 500; color: #8BA8CC;">
                     Te sugerimos tener instalada la app de <strong>Google Drive</strong> para subir tus archivos fácilmente.
                 </span>
             </p>
             <a href="https://drive.google.com/drive/folders/1sbBns_QfudgwAUWjuD70spa0gTSsSDza?usp=sharing" target="_blank" class="anim-element anim-fade-up delay-4 btn-solid">Subir mis Fotos</a>
-
-            <div class="anim-element anim-fade-up delay-4 photo-frame" style="margin-top: 70px;">
-                <img src="assets/foto8.jpg" alt="Momentos" onerror="this.style.display='none'">
-            </div>
         </section>
 
         <!-- RSVP y Pases -->
         <section class="section-block bg-pearl">
             <img src="assets/flores2.png" class="floral-img anim-element anim-zoom delay-1" style="top: -20px; right: -20px; transform: rotate(-10deg);" alt="">
-            
-            <div class="anim-element anim-fade-up delay-1 photo-frame" style="margin-bottom: 70px; margin-top: 0;">
-                <img src="assets/foto9.jpg" alt="Detalles" onerror="this.style.display='none'">
-            </div>
 
             <!-- Tarjeta VIP Oculta (Sistema Invytia) -->
-            <div id="pases-section" style="display: none; width: 100%;">
+            <div id="pases-section" style="display: none; width: 100%; margin-bottom: 50px;">
                 <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                     Acceso al Evento
                     <div class="sparkle" style="top:-10px; right:-15px;"></div>
@@ -648,7 +603,6 @@
                         Muestra esta pantalla al llegar
                     </div>
                 </div>
-                <div class="anim-element anim-fade-up line-horizontal" style="margin: 60px auto;"></div>
             </div>
 
             <!-- Formulario RSVP -->
@@ -680,8 +634,6 @@
             
             <button onclick="sendRSVP()" class="anim-element anim-fade-up delay-4 btn-solid" style="margin-bottom: 70px;">Confirmar por WhatsApp</button>
 
-            <div class="anim-element anim-zoom line-divider"></div>
-
             <!-- Muro de Deseos -->
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Mensajes
@@ -694,11 +646,7 @@
             <div class="anim-element anim-fade-up delay-4 form-group">
                 <textarea id="wish-message" class="input-line" placeholder="Deja un lindo mensaje para Alice Danae..."></textarea>
             </div>
-            <button onclick="sendWish()" class="anim-element anim-fade-up delay-4 btn-solid" style="margin-bottom: 70px;">Enviar Mensaje</button>
-
-            <div class="anim-element anim-fade-up delay-4 photo-frame" style="margin-bottom: 0;">
-                <img src="assets/foto10.jpg" alt="Despedida" onerror="this.style.display='none'">
-            </div>
+            <button onclick="sendWish()" class="anim-element anim-fade-up delay-4 btn-solid" style="margin-bottom: 40px;">Enviar Mensaje</button>
             
         </section>
 
@@ -781,7 +729,7 @@
                 document.getElementById('ticket-count').innerText = pasesAsignados;
             }
         } else {
-            // Fallback de seguridad por si envían link limpio
+            // Fallback de seguridad
             pasesAsignados = 10; 
         }
 
