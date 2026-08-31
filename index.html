@@ -93,6 +93,7 @@
             z-index: 10;
         }
 
+        /* Títulos en blanco sin sombras ni destellos extras */
         .env-tag {
             font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 8px;
             text-transform: uppercase; color: #FFFFFF; font-weight: 500;
@@ -139,6 +140,7 @@
 
         .envelope-wrapper.open .front-flap { transform: rotateX(180deg); z-index: 1; }
 
+        /* Sello liso sin figura */
         .wax-seal {
             position: absolute; top: 90px; left: 50%; transform: translateX(-50%);
             width: 45px; height: 45px; background-color: var(--navy-accent);
@@ -159,7 +161,7 @@
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
         @keyframes floatText { 0% { transform: translateY(0); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0); } }
 
-        /* --- DESTELLOS Y BRILLOS --- */
+        /* --- DESTELLOS Y BRILLOS EN TEXTOS --- */
         .sparkle-container {
             position: relative;
             display: inline-block;
@@ -218,16 +220,58 @@
         /* CLASES DE COLORES */
         .bg-pearl { background-color: var(--bg-pearl); }
         
-        /* Tema Invertido: Fondo Azul Marino Oscuro, Letras Blancas */
+        /* Tema Invertido: Fondo Azul Marino Oscuro + EFECTO ESTRELLAS */
         .bg-navy { 
             background-color: var(--navy-accent); 
             color: #ffffff; 
+            position: relative;
         }
         
-        .bg-navy .info-title { color: #8BA8CC; } /* Azul más claro para subtítulos en fondos oscuros */
+        /* Generador de Noche Estrellada */
+        .bg-navy::before, .bg-navy::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1; /* Detrás de los textos (.anim-element tiene z-index: 2) */
+        }
+        
+        .bg-navy::before {
+            background-image: 
+                radial-gradient(1.5px 1.5px at 20px 30px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 60px 80px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 120px 40px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 180px 150px, rgba(255,255,255,0.6), rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 260px 90px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 320px 170px, rgba(255,255,255,0.8), rgba(0,0,0,0));
+            background-size: 350px 350px;
+            animation: starryNight 4s infinite alternate ease-in-out;
+            opacity: 0.6;
+        }
+        
+        .bg-navy::after {
+            background-image: 
+                radial-gradient(1px 1px at 40px 160px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 140px 240px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 240px 50px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 290px 200px, rgba(255,255,255,0.5), rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 340px 280px, rgba(255,255,255,0.8), rgba(0,0,0,0));
+            background-size: 400px 400px;
+            animation: starryNight 6s infinite alternate-reverse ease-in-out;
+            opacity: 0.5;
+        }
+
+        @keyframes starryNight {
+            0% { opacity: 0.2; transform: scale(1); }
+            100% { opacity: 0.9; transform: scale(1.05); }
+        }
+
+        /* Estilos de tipografía en fondo oscuro */
+        .bg-navy .info-title { color: #8BA8CC; } 
         .bg-navy .info-data, .bg-navy .title-script { color: #ffffff; }
         .bg-navy .body-serif { color: #CBD5E1; }
         .bg-navy svg.gift-icon { fill: #ffffff; }
+        .bg-navy .tag-line { color: #8BA8CC; }
 
         /* Tema Negro */
         .bg-black { background-color: var(--black-theme); color: #ffffff; }
@@ -245,8 +289,6 @@
             font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 5px;
             text-transform: uppercase; color: var(--navy-accent); margin-bottom: 25px; font-weight: 600;
         }
-        
-        .bg-navy .tag-line { color: #8BA8CC; }
 
         .title-script {
             font-family: 'Pinyon Script', cursive; font-size: 80px;
@@ -259,7 +301,6 @@
             max-width: 600px; padding: 0 15px; font-weight: 400;
         }
 
-        /* Información Textual */
         .info-title {
             font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 3px; line-height: 1.4;
             text-transform: uppercase; color: var(--navy-accent); margin-bottom: 12px; font-weight: 600;
@@ -281,11 +322,10 @@
         
         .btn-solid:hover { background-color: var(--navy-light); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(15, 32, 59, 0.25); }
         
-        /* Botones en fondos oscuros */
         .bg-navy .btn-solid, .bg-black .btn-solid { background-color: #ffffff; color: var(--navy-accent); }
         .bg-navy .btn-solid:hover, .bg-black .btn-solid:hover { background-color: #f1f5f9; box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2); }
 
-        /* Widget de Calendario Editorial (Blanco puro para contrastar en fondo oscuro) */
+        /* Widget de Calendario Editorial */
         .calendar-wrapper {
             width: 100%; max-width: 340px; margin: 40px auto; padding: 35px 25px;
             background: #fff; border-radius: 2px; box-shadow: 0 15px 45px rgba(0,0,0,0.15);
@@ -342,7 +382,7 @@
         textarea.input-line { resize: vertical; min-height: 90px; }
         select.input-line { appearance: none; text-align-last: center; cursor: pointer; }
 
-        /* Boleto Pase VIP Editorial (Invytia) */
+        /* Boleto Pase VIP Editorial */
         .ticket-card {
             width: 100%; max-width: 380px; margin: 30px auto; background-color: #fff;
             padding: 50px 25px; position: relative; text-align: center;
@@ -391,7 +431,7 @@
 
         <div class="envelope-wrapper" onclick="openEnvelope()">
             <div class="front-flap"></div>
-            <!-- Sello sin estrella -->
+            <!-- Sello limpio, sin estrella -->
             <div class="wax-seal"></div>
             <div class="envelope"></div>
         </div>
@@ -419,7 +459,7 @@
             </p>
         </section>
 
-        <!-- Fecha y Calendario (Fondo Azul Marino) -->
+        <!-- Fecha y Calendario (Fondo Azul Marino + Estrellas) -->
         <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-2" style="top: 20%; right: -20px; transform: rotate(-35deg);" alt="">
 
@@ -468,7 +508,7 @@
             <div class="anim-element anim-fade-up delay-4 info-data" style="font-size: 28px;">Ana Cecilia Martinez Orocio y Luis López Martinez</div>
         </section>
 
-        <!-- Itinerario (Fondo Azul Marino) -->
+        <!-- Itinerario (Fondo Azul Marino + Estrellas) -->
         <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: 5%; right: -20px; transform: rotate(45deg);" alt="">
             
@@ -523,7 +563,7 @@
             </p>
         </section>
 
-        <!-- Mesa de Regalos (Fondo Azul Marino) -->
+        <!-- Mesa de Regalos (Fondo Azul Marino + Estrellas) -->
         <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: 10%; right: -25px; transform: rotate(-30deg);" alt="">
 
@@ -560,7 +600,7 @@
             <a href="https://open.spotify.com/playlist/7l0FCv5Z6jN3OafGk5dOnI?si=2d857d8325ff432e&pt=14b329e549c5dbd856fb312730da317a" target="_blank" class="anim-element anim-fade-up delay-4 btn-solid">Agregar Canciones</a>
         </section>
 
-        <!-- Galería (Fondo Azul Marino) -->
+        <!-- Galería (Fondo Azul Marino + Estrellas) -->
         <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: 15%; left: -30px; transform: rotate(35deg);" alt="">
 
@@ -582,7 +622,7 @@
         <section class="section-block bg-pearl">
             <img src="assets/flores2.png" class="floral-img anim-element anim-zoom delay-1" style="top: -20px; right: -20px; transform: rotate(-10deg);" alt="">
 
-            <!-- Tarjeta VIP Oculta (Sistema Invytia) -->
+            <!-- Tarjeta VIP Oculta -->
             <div id="pases-section" style="display: none; width: 100%; margin-bottom: 50px;">
                 <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                     Acceso al Evento
