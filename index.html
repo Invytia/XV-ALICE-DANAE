@@ -311,6 +311,17 @@
             color: var(--text-dark); margin-bottom: 5px; font-weight: 500; line-height: 1.3;
         }
 
+        /* Nombres de padres/padrinos en script manuscrita */
+        .info-data-script {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 42px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        .bg-navy .info-data-script, .bg-black .info-data-script { color: #ffffff; }
+
         /* Botones Minimalistas Editoriales */
         .btn-solid {
             display: inline-block; background-color: var(--navy-accent); color: #fff;
@@ -358,6 +369,28 @@
             font-weight: 500; box-shadow: 0 4px 12px rgba(15, 32, 59, 0.35);
         }
 
+        /* Cuenta Atrás */
+        .countdown-wrapper {
+            display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+            width: 100%; max-width: 420px; margin: 10px auto 20px auto; position: relative; z-index: 2;
+        }
+
+        .countdown-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 2px; padding: 14px 10px; min-width: 68px;
+            backdrop-filter: blur(2px);
+        }
+
+        .countdown-number {
+            font-family: 'Cinzel', serif; font-size: 30px; font-weight: 600; color: #ffffff; line-height: 1;
+        }
+
+        .countdown-label {
+            font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 2px;
+            text-transform: uppercase; color: #8BA8CC; margin-top: 8px;
+        }
+
         /* Mapas */
         .map-box {
             width: 100%; max-width: 550px; height: 320px; margin: 30px auto;
@@ -365,6 +398,17 @@
         }
         
         .map-box iframe { width: 100%; height: 100%; border: none; filter: contrast(1.05); }
+
+        /* Fotos de Ubicaciones */
+        .location-photos {
+            display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+            width: 100%; max-width: 550px; margin: 10px auto 10px auto; position: relative; z-index: 2;
+        }
+
+        .location-photos img {
+            width: calc(50% - 8px); min-width: 150px; height: 190px; object-fit: cover;
+            border-radius: 2px; box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
 
         /* Formularios RSVP Finos */
         .form-group { width: 100%; max-width: 400px; margin: 0 auto 20px auto; position: relative; z-index: 2; }
@@ -417,17 +461,54 @@
             opacity: 0.8;
         }
 
+        /* Iconos representativos de cada apartado */
+        .section-icon {
+            width: 34px; height: 34px; margin-bottom: 18px;
+            stroke: var(--navy-accent); fill: none; stroke-width: 1.4;
+            position: relative; z-index: 2;
+        }
+        .bg-navy .section-icon, .bg-black .section-icon { stroke: #ffffff; }
+
+        /* --- DESTELLOS FLOTANTES GLOBALES (toda la invitación) --- */
+        #global-sparkles {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1500; overflow: hidden;
+        }
+
+        .float-sparkle {
+            position: absolute;
+            bottom: -30px;
+            width: 10px; height: 10px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C12 5.5 16.5 10 22 10C16.5 10 12 14.5 12 20C12 14.5 7.5 10 2 10C7.5 10 12 5.5 12 0Z" fill="%230F203B"/></svg>') center/contain no-repeat;
+            opacity: 0;
+            animation-name: floatUp;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translate(0, 0) scale(0.4) rotate(0deg); }
+            10% { opacity: 0.85; }
+            50% { transform: translate(20px, -50vh) scale(1) rotate(180deg); }
+            90% { opacity: 0.6; }
+            100% { opacity: 0; transform: translate(-15px, -100vh) scale(0.5) rotate(360deg); }
+        }
+
         /* Responsive Móvil */
         @media (max-width: 400px) {
             .env-title { font-size: 65px; }
             .title-script { font-size: 65px; }
             .section-block { padding: 80px 15px; }
             .info-data { font-size: 28px; }
+            .info-data-script { font-size: 34px; }
             .map-box { height: 260px; }
             .envelope { width: 300px; height: 195px; }
             .envelope::before, .envelope::after { border-left-width: 150px; border-right-width: 150px; border-top-width: 97px; border-bottom-width: 97px; }
             .front-flap { border-left-width: 150px; border-right-width: 150px; border-top-width: 105px; }
             .floral-img { max-width: 110px; }
+            .location-photos img { height: 150px; }
+            .countdown-item { min-width: 58px; padding: 10px 8px; }
+            .countdown-number { font-size: 24px; }
         }
     </style>
 </head>
@@ -435,6 +516,9 @@
 
     <!-- AUDIO OCULTO -->
     <audio id="bg-music" src="assets/song.mp3" loop></audio>
+
+    <!-- CAPA GLOBAL DE DESTELLOS FLOTANTES -->
+    <div id="global-sparkles"></div>
 
     <!-- BOTÓN STICKY DE MÚSICA -->
     <button id="music-btn" class="sticky-music-btn" onclick="toggleMusic()" aria-label="Controlar música">
@@ -467,6 +551,8 @@
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: -20px; left: -30px; transform: rotate(15deg);" alt="">
             <img src="assets/flores2.png" class="floral-img anim-element anim-zoom delay-2" style="bottom: 50px; right: -30px; transform: rotate(-20deg);" alt="">
 
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><path d="M12 2l2.4 6.9L21 9l-5.5 4.3L17 21l-5-3.9L7 21l1.5-7.7L3 9l6.6-.1z" stroke-linejoin="round"/></svg>
+
             <div class="anim-element anim-fade-up delay-1 tag-line sparkle-container">
                 Mis XV Años
                 <div class="sparkle" style="top:-10px; right:-20px;"></div>
@@ -482,6 +568,8 @@
         <!-- Fecha y Calendario (Fondo Azul Marino + Estrellas) -->
         <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-2" style="top: 20%; right: -20px; transform: rotate(-35deg);" alt="">
+
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><path d="M7 3v3M17 3v3M4 9h16M5 6h14a1 1 0 011 1v12a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1z" stroke-linejoin="round" stroke-linecap="round"/></svg>
 
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Será un honor contar con tu presencia el
@@ -504,6 +592,17 @@
                 </div>
             </div>
 
+            <div class="anim-element anim-fade-up delay-4 info-title sparkle-container" style="margin-top: 10px;">
+                Cuenta Atrás
+                <div class="sparkle s-light" style="top:-8px; right:-20px;"></div>
+            </div>
+            <div id="countdown" class="anim-element anim-zoom delay-4 countdown-wrapper">
+                <div class="countdown-item"><div class="countdown-number" id="cd-days">00</div><div class="countdown-label">Días</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="cd-hours">00</div><div class="countdown-label">Hrs</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="cd-minutes">00</div><div class="countdown-label">Min</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="cd-seconds">00</div><div class="countdown-label">Seg</div></div>
+            </div>
+
             <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=XV+A%C3%B1os+de+Alice+Danae&dates=20270116T223000Z/20270117T060000Z&details=Celebremos+juntos+este+d%C3%ADa+tan+especial" target="_blank" class="anim-element anim-fade-up delay-4 btn-solid">Agendar Evento</a>
         </section>
 
@@ -511,33 +610,37 @@
         <section class="section-block bg-pearl">
             <img src="assets/flores2.png" class="floral-img anim-element anim-zoom delay-1" style="bottom: 10%; left: -30px; transform: rotate(20deg);" alt="">
 
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.2C0.3 8.4 2 4.8 5.4 4.2 7.6 3.8 9.8 5 12 7.8 14.2 5 16.4 3.8 18.6 4.2 22 4.8 23.7 8.4 22 11.8 19.5 16.4 12 21 12 21z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Con el amor de mis padres
                 <div class="sparkle" style="top:-10px; right:-15px;"></div>
             </div>
-            <div class="anim-element anim-fade-up delay-2 info-data">Gabriela Sotelo Martinez</div>
+            <div class="anim-element anim-fade-up delay-2 info-data-script">Gabriela Sotelo Martinez</div>
             <div class="anim-element anim-fade-up delay-3" style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--navy-accent); margin: 15px 0;">&</div>
-            <div class="anim-element anim-fade-up delay-3 info-data">Sergio Morales Merida</div>
+            <div class="anim-element anim-fade-up delay-3 info-data-script">Sergio Morales Merida</div>
             
             <div class="anim-element anim-fade-up delay-4 info-title sparkle-container" style="margin-top: 50px;">
                 Y mis Padrinos
                 <div class="sparkle" style="top:-5px; left:-20px; animation-delay:0.5s;"></div>
             </div>
-            <div class="anim-element anim-fade-up delay-4 info-data" style="font-size: 28px;">Yareli Ambrosio Vargas y Joshua Calix Bustos</div>
+            <div class="anim-element anim-fade-up delay-4 info-data-script" style="font-size: 32px;">Yareli Ambrosio Vargas y Joshua Calix Bustos</div>
             <div class="anim-element anim-fade-up delay-4" style="font-family: 'Cinzel', serif; font-size: 16px; color: var(--navy-accent); margin: 10px 0;">&</div>
-            <div class="anim-element anim-fade-up delay-4 info-data" style="font-size: 28px;">Ana Cecilia Martinez Orocio y Luis López Martinez</div>
+            <div class="anim-element anim-fade-up delay-4 info-data-script" style="font-size: 32px;">Ana Cecilia Martinez Orocio y Luis López San Juan</div>
         </section>
 
         <!-- Itinerario (Fondo Azul Marino + Estrellas) -->
         <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: 5%; right: -20px; transform: rotate(45deg);" alt="">
             
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Itinerario
                 <div class="sparkle s-light" style="top:-10px; right:-20px;"></div>
             </div>
             
-            <div class="anim-element anim-fade-up delay-2 info-data" style="margin-top: 20px;">5:00 p.m.</div>
+            <div class="anim-element anim-fade-up delay-2 info-data" style="margin-top: 20px;">4:30 p.m.</div>
             <div class="anim-element anim-fade-up delay-3 body-serif" style="font-size: 26px;">Misa de Acción de Gracias</div>
             <p class="anim-element anim-fade-up delay-3 body-serif" style="font-size: 18px; margin-top: 5px;">Terraza Jardín "Rancho Escondido"</p>
 
@@ -550,13 +653,20 @@
         <section class="section-block bg-pearl">
             <img src="assets/flores2.png" class="floral-img anim-element anim-zoom delay-3" style="bottom: 30%; right: -25px; transform: rotate(-15deg);" alt="">
 
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.9-6.5-11A6.5 6.5 0 0112 3.5 6.5 6.5 0 0118.5 10c0 5.1-6.5 11-6.5 11z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3"/></svg>
+
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
-                Misa de Acción de Gracias y Recepción
+                Misa de Acción de Gracias y Recepción · 4:30 p.m.
                 <div class="sparkle" style="top:-8px; left:-25px;"></div>
             </div>
             <div class="anim-element anim-fade-up delay-2 info-data">Terraza Jardín Rancho Escondido</div>
             <div class="anim-element anim-fade-up delay-3 tag-line" style="font-size: 14px; margin: 15px 0; color: var(--text-muted); text-transform: none; font-family: 'Montserrat', sans-serif;">
                 Av. J. M. Morelos 1, San Gregorio Cuautzingo, 56640, Méx.
+            </div>
+
+            <div class="anim-element anim-zoom delay-3 location-photos">
+                <img src="assets/misa.jpg" alt="Misa de Acción de Gracias">
+                <img src="assets/salon.jpg" alt="Terraza Jardín Rancho Escondido">
             </div>
             
             <div class="anim-element anim-zoom delay-4 map-box">
@@ -567,6 +677,8 @@
 
         <!-- Dress Code -->
         <section class="section-block bg-black">
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><path d="M9 3l3 2 3-2 4 3-2 3-2-1v11H8V8L6 9 4 6z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Dress Code
                 <div class="sparkle s-light" style="top:-10px; right:-20px;"></div>
@@ -587,6 +699,8 @@
         <section class="section-block bg-pearl">
             <img src="assets/flores2.png" class="floral-img anim-element anim-zoom delay-1" style="bottom: 15%; left: -20px; transform: rotate(15deg);" alt="">
 
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Música
                 <div class="sparkle" style="top:-10px; right:-15px;"></div>
@@ -606,6 +720,8 @@
         <!-- Galería (Fondo Azul Marino + Estrellas) -->
         <section class="section-block bg-navy">
             <img src="assets/flores1.png" class="floral-img anim-element anim-zoom delay-1" style="top: 15%; left: -30px; transform: rotate(35deg);" alt="">
+
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="1.5"/><path d="M8 6l1.5-2.5h5L16 6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.5"/></svg>
 
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Momentos
@@ -648,6 +764,8 @@
                 </div>
             </div>
 
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 6l9 7 9-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
             <!-- Formulario RSVP -->
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 RSVP
@@ -678,6 +796,7 @@
             <button onclick="sendRSVP()" class="anim-element anim-fade-up delay-4 btn-solid" style="margin-bottom: 70px;">Confirmar por WhatsApp</button>
 
             <!-- Muro de Deseos -->
+            <svg class="section-icon anim-element anim-zoom delay-1" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.2C0.3 8.4 2 4.8 5.4 4.2 7.6 3.8 9.8 5 12 7.8 14.2 5 16.4 3.8 18.6 4.2 22 4.8 23.7 8.4 22 11.8 19.5 16.4 12 21 12 21z" stroke-linejoin="round" stroke-linecap="round"/></svg>
             <div class="anim-element anim-fade-up delay-1 info-title sparkle-container">
                 Mensajes
                 <div class="sparkle" style="top:-10px; right:-20px;"></div>
@@ -769,6 +888,61 @@
 
             document.querySelectorAll('.anim-element').forEach(el => observer.observe(el));
         });
+
+        // --- DESTELLOS FLOTANTES GLOBALES ---
+        (function createGlobalSparkles() {
+            const container = document.getElementById('global-sparkles');
+            const total = 22;
+            for (let i = 0; i < total; i++) {
+                const s = document.createElement('div');
+                s.className = 'float-sparkle';
+                s.style.left = Math.random() * 100 + 'vw';
+                const size = 6 + Math.random() * 12;
+                s.style.width = size + 'px';
+                s.style.height = size + 'px';
+                const duration = 9 + Math.random() * 10;
+                s.style.animationDuration = duration + 's';
+                s.style.animationDelay = (Math.random() * duration) + 's';
+                container.appendChild(s);
+            }
+        })();
+
+        // --- CUENTA ATRÁS ---
+        (function initCountdown() {
+            const targetDate = new Date("2027-01-16T16:30:00-06:00").getTime();
+            const elDays = document.getElementById('cd-days');
+            const elHours = document.getElementById('cd-hours');
+            const elMinutes = document.getElementById('cd-minutes');
+            const elSeconds = document.getElementById('cd-seconds');
+
+            function pad(n) { return String(n).padStart(2, '0'); }
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance <= 0) {
+                    elDays.textContent = '00';
+                    elHours.textContent = '00';
+                    elMinutes.textContent = '00';
+                    elSeconds.textContent = '00';
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                elDays.textContent = pad(days);
+                elHours.textContent = pad(hours);
+                elMinutes.textContent = pad(minutes);
+                elSeconds.textContent = pad(seconds);
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        })();
 
         // --- SISTEMA DE PASES (URL Params ?p=) ---
         const urlParams = new URLSearchParams(window.location.search);
